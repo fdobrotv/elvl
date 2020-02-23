@@ -1,4 +1,4 @@
-package com.fdobrotv.elvlapi
+package com.fdobrotv.elvl.impl
 
 import org.junit.jupiter.api.Test
 import org.springframework.boot.test.context.SpringBootTest

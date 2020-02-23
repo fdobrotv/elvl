@@ -1,4 +1,4 @@
-package com.fdobrotv.elvlapi
+package com.fdobrotv.elvl.impl
 
 import org.springframework.boot.autoconfigure.SpringBootApplication
 import org.springframework.boot.runApplication
