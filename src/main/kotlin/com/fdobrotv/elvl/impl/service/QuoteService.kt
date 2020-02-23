@@ -6,6 +6,7 @@ import com.fdobrotv.elvl.impl.repository.QuoteRepository
 import com.fdobrotv.elvl.model.Quote
 import com.fdobrotv.elvl.model.QuoteIn
 import org.springframework.stereotype.Service
+import org.springframework.transaction.annotation.Transactional
 import java.math.BigDecimal
 
 interface QuoteService {
@@ -28,10 +29,12 @@ class QuoteServiceImpl(
         }
     }
 
+    @Transactional(readOnly = true)
     override fun getAll(): List<Quote> {
         return quoteRepository.findAll().map { it.toDTO() }
     }
 
+    @Transactional
     override fun create(quote: QuoteIn): Quote {
         //TODO: add validation with using of @Validate (bid должен быть меньше ask && isin – 12 символов)
 
