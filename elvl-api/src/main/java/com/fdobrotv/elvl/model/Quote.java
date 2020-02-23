@@ -5,6 +5,8 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonCreator;
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
+import java.math.BigDecimal;
+import java.util.UUID;
 import org.openapitools.jackson.nullable.JsonNullable;
 import javax.validation.Valid;
 import javax.validation.constraints.*;
@@ -15,18 +17,18 @@ import javax.validation.constraints.*;
 
 public class Quote   {
   @JsonProperty("id")
-  private Long id;
+  private UUID id;
 
   @JsonProperty("isin")
   private String isin;
 
   @JsonProperty("bid")
-  private Integer bid;
+  private BigDecimal bid;
 
   @JsonProperty("ask")
-  private Integer ask;
+  private BigDecimal ask;
 
-  public Quote id(Long id) {
+  public Quote id(UUID id) {
     this.id = id;
     return this;
   }
@@ -38,12 +40,13 @@ public class Quote   {
   @ApiModelProperty(required = true, value = "")
   @NotNull
 
+  @Valid
 
-  public Long getId() {
+  public UUID getId() {
     return id;
   }
 
-  public void setId(Long id) {
+  public void setId(UUID id) {
     this.id = id;
   }
 
@@ -68,7 +71,7 @@ public class Quote   {
     this.isin = isin;
   }
 
-  public Quote bid(Integer bid) {
+  public Quote bid(BigDecimal bid) {
     this.bid = bid;
     return this;
   }
@@ -77,19 +80,20 @@ public class Quote   {
    * Get bid
    * @return bid
   */
-  @ApiModelProperty(required = true, value = "")
+  @ApiModelProperty(example = "100.2", required = true, value = "")
   @NotNull
 
+  @Valid
 
-  public Integer getBid() {
+  public BigDecimal getBid() {
     return bid;
   }
 
-  public void setBid(Integer bid) {
+  public void setBid(BigDecimal bid) {
     this.bid = bid;
   }
 
-  public Quote ask(Integer ask) {
+  public Quote ask(BigDecimal ask) {
     this.ask = ask;
     return this;
   }
@@ -98,15 +102,16 @@ public class Quote   {
    * Get ask
    * @return ask
   */
-  @ApiModelProperty(required = true, value = "")
+  @ApiModelProperty(example = "101.9", required = true, value = "")
   @NotNull
 
+  @Valid
 
-  public Integer getAsk() {
+  public BigDecimal getAsk() {
     return ask;
   }
 
-  public void setAsk(Integer ask) {
+  public void setAsk(BigDecimal ask) {
     this.ask = ask;
   }
 

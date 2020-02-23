@@ -5,6 +5,7 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonCreator;
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
+import java.util.UUID;
 import org.openapitools.jackson.nullable.JsonNullable;
 import javax.validation.Valid;
 import javax.validation.constraints.*;
@@ -15,12 +16,12 @@ import javax.validation.constraints.*;
 
 public class Elvl   {
   @JsonProperty("id")
-  private Long id;
+  private UUID id;
 
   @JsonProperty("name")
   private String name;
 
-  public Elvl id(Long id) {
+  public Elvl id(UUID id) {
     this.id = id;
     return this;
   }
@@ -32,12 +33,13 @@ public class Elvl   {
   @ApiModelProperty(required = true, value = "")
   @NotNull
 
+  @Valid
 
-  public Long getId() {
+  public UUID getId() {
     return id;
   }
 
-  public void setId(Long id) {
+  public void setId(UUID id) {
     this.id = id;
   }
 
