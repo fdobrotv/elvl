@@ -4,12 +4,13 @@ import com.fdobrotv.elvl.impl.mapper.toDTO
 import com.fdobrotv.elvl.impl.mapper.toEntity
 import com.fdobrotv.elvl.impl.repository.QuoteRepository
 import com.fdobrotv.elvl.model.Quote
+import com.fdobrotv.elvl.model.QuoteIn
 import org.springframework.stereotype.Service
 import java.math.BigDecimal
 
 interface QuoteService {
     fun getAll(): List<Quote>
-    fun create(quote: Quote): Quote
+    fun create(quote: QuoteIn): Quote
 }
 
 @Service
@@ -31,7 +32,7 @@ class QuoteServiceImpl(
         return quoteRepository.findAll().map { it.toDTO() }
     }
 
-    override fun create(quote: Quote): Quote {
+    override fun create(quote: QuoteIn): Quote {
         //TODO: add validation with using of @Validate (bid должен быть меньше ask && isin – 12 символов)
 
         if (quote.bid > elvl) {

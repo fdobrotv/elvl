@@ -9,7 +9,7 @@ plugins {
 
 group = "com.fdobrotv"
 version = "0.0.1-SNAPSHOT"
-java.sourceCompatibility = JavaVersion.VERSION_11
+java.sourceCompatibility = JavaVersion.VERSION_1_8
 
 repositories {
     mavenCentral()
@@ -21,7 +21,7 @@ dependencies {
 
     implementation("org.flywaydb:flyway-core:6.2.4")
 
-
+    implementation("io.github.microutils:kotlin-logging:1.7.8")
 
     implementation("com.fasterxml.jackson.module:jackson-module-kotlin")
     implementation("org.jetbrains.kotlin:kotlin-reflect")

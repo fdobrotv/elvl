@@ -2,9 +2,10 @@ package com.fdobrotv.elvl.impl.mapper
 
 import com.fdobrotv.elvl.impl.entity.QuoteEntity
 import com.fdobrotv.elvl.model.Quote
+import com.fdobrotv.elvl.model.QuoteIn
 
 
-fun Quote.toEntity(): QuoteEntity {
+fun QuoteIn.toEntity(): QuoteEntity {
     return QuoteEntity(
             isin = isin,
             bid = bid,
