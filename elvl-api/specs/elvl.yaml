@@ -7,8 +7,9 @@ info:
     name: GNU
 
 servers:
-- url: https://api.elvs.fdobrotv.com
+  - url: https://api.elvs.fdobrotv.com
 
+#TODO: Put all into https://jsonapi.org/ standard
 paths:
   /quotes:
     get:
@@ -43,7 +44,11 @@ paths:
               $ref: '#/components/schemas/Quote'
       responses:
         '201':
-          description: Null response
+          description: Created quote
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Quote"
         default:
           description: unexpected error
           content:
@@ -74,14 +79,14 @@ paths:
       summary: Get elvl by isin
       operationId: elvl by isin
       tags:
-      - Elvl
+        - Elvl
       parameters:
-      - name: isin
-        in: path
-        description: How many items to return at one time (max 100)
-        required: false
-        schema:
-          $ref: '#/components/schemas/Isin'
+        - name: isin
+          in: path
+          description: How many items to return at one time (max 100)
+          required: false
+          schema:
+            $ref: '#/components/schemas/Isin'
       responses:
         '200':
           description: Elvl by isin
@@ -149,8 +154,8 @@ components:
     Error:
       type: object
       required:
-      - code
-      - message
+        - code
+        - message
       properties:
         code:
           type: integer

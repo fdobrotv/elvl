@@ -11,10 +11,10 @@ class QuoteController(
         private val quoteService: QuoteService
 ) : QuotesApi {
     override fun getAllQuotes(): ResponseEntity<MutableList<Quote>> {
-        return super.getAllQuotes()
+        return ResponseEntity.ok(quoteService.getAll().toMutableList())
     }
 
-    override fun createQuote(quote: Quote): ResponseEntity<Void> {
-        return super.createQuote(quote)
+    override fun createQuote(quote: Quote): ResponseEntity<Quote> {
+        return ResponseEntity.ok(quoteService.create(quote))
     }
 }

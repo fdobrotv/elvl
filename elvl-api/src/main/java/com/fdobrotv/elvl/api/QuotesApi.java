@@ -40,18 +40,27 @@ public interface QuotesApi {
      * POST /quotes : Create a quote
      *
      * @param quote Body of the quote (required)
-     * @return Null response (status code 201)
+     * @return Created quote (status code 201)
      *         or unexpected error (status code 200)
      */
-    @ApiOperation(value = "Create a quote", nickname = "createQuote", notes = "", tags={ "Quote", })
+    @ApiOperation(value = "Create a quote", nickname = "createQuote", notes = "", response = Quote.class, tags={ "Quote", })
     @ApiResponses(value = { 
-        @ApiResponse(code = 201, message = "Null response"),
+        @ApiResponse(code = 201, message = "Created quote", response = Quote.class),
         @ApiResponse(code = 200, message = "unexpected error", response = Error.class) })
     @RequestMapping(value = "/quotes",
         produces = { "application/json" }, 
         consumes = { "application/json" },
         method = RequestMethod.POST)
-    default ResponseEntity<Void> createQuote(@ApiParam(value = "Body of the quote" ,required=true )  @Valid @RequestBody Quote quote) {
+    default ResponseEntity<Quote> createQuote(@ApiParam(value = "Body of the quote" ,required=true )  @Valid @RequestBody Quote quote) {
+        getRequest().ifPresent(request -> {
+            for (MediaType mediaType: MediaType.parseMediaTypes(request.getHeader("Accept"))) {
+                if (mediaType.isCompatibleWith(MediaType.valueOf("application/json"))) {
+                    String exampleString = "{ \"ask\" : 101.9, \"id\" : \"046b6c7f-0b8a-43b9-b35d-6489e6daee91\", \"bid\" : 100.2, \"isin\" : \"RU000A0JX0J2\" }";
+                    ApiUtil.setExampleResponse(request, "application/json", exampleString);
+                    break;
+                }
+            }
+        });
         return new ResponseEntity<>(HttpStatus.NOT_IMPLEMENTED);
 
     }
