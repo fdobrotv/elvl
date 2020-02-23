@@ -12,7 +12,7 @@ paths:
       summary: List of all quotes (котировки)
       operationId: getAllQuotes
       tags:
-        - Quotes
+        - Quote
       responses:
         '200':
           description: Array of quotes
@@ -26,12 +26,26 @@ paths:
             application/json:
               schema:
                 $ref: "#/components/schemas/Error"
+    post:
+      summary: Create an elvl
+      operationId: createPets
+      tags:
+        - Elvl
+      responses:
+        '201':
+          description: Null response
+        default:
+          description: unexpected error
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Error"
   /elvls:
     get:
       summary: List of all elvls (energy level – лучшая цена по данному инструменту (isin))
       operationId: getAllElvls
       tags:
-        - rates
+        - Elvl
       responses:
         '200':
           description: Array of elvls
@@ -50,10 +64,10 @@ paths:
       summary: Get elvl by isin
       operationId: elvl by isin
       tags:
-      - pets
+      - Elvl
       parameters:
       - name: isin
-        in: query
+        in: path
         description: How many items to return at one time (max 100)
         required: false
         schema:
@@ -71,53 +85,13 @@ paths:
             application/json:
               schema:
                 $ref: "#/components/schemas/Error"
-    post:
-      summary: Create a pet
-      operationId: createPets
-      tags:
-      - pets
-      responses:
-        '201':
-          description: Null response
-        default:
-          description: unexpected error
-          content:
-            application/json:
-              schema:
-                $ref: "#/components/schemas/Error"
-  /pets/{petId}:
-    get:
-      summary: Info for a specific pet
-      operationId: showPetById
-      tags:
-      - pets
-      parameters:
-      - name: petId
-        in: path
-        required: true
-        description: The id of the pet to retrieve
-        schema:
-          type: string
-      responses:
-        '200':
-          description: Expected response to a valid request
-          content:
-            application/json:
-              schema:
-                $ref: "#/components/schemas/Pet"
-        default:
-          description: unexpected error
-          content:
-            application/json:
-              schema:
-                $ref: "#/components/schemas/Error"
 components:
   schemas:
     Isin:
       type: string
-        minLength: 12
-        maxLength: 12
-        pattern: '\b([A-Z]{2})((?![A-Z]{10}\b)[A-Z0-9]{10})\b'
+      minLength: 12
+      maxLength: 12
+      pattern: '\b([A-Z]{2})((?![A-Z]{10}\b)[A-Z0-9]{10})\b'
 
     Quote:
       type: object
