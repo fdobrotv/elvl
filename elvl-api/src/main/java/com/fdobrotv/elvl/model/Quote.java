@@ -12,7 +12,6 @@ import javax.validation.constraints.*;
 /**
  * Quote
  */
-@javax.annotation.Generated(value = "org.openapitools.codegen.languages.SpringCodegen", date = "2020-02-23T20:21:55.909566300+06:00[Asia/Almaty]")
 
 public class Quote   {
   @JsonProperty("id")
@@ -57,7 +56,7 @@ public class Quote   {
    * Get isin
    * @return isin
   */
-  @ApiModelProperty(required = true, value = "")
+  @ApiModelProperty(example = "RU000A0JX0J2", required = true, value = "")
   @NotNull
 
 @Pattern(regexp="\\b([A-Z]{2})((?![A-Z]{10}\\b)[A-Z0-9]{10})\\b") @Size(min=12,max=12) 

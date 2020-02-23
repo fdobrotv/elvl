@@ -27,7 +27,6 @@ import javax.validation.constraints.*;
 import java.util.List;
 import java.util.Map;
 import java.util.Optional;
-@javax.annotation.Generated(value = "org.openapitools.codegen.languages.SpringCodegen", date = "2020-02-23T20:21:55.909566300+06:00[Asia/Almaty]")
 
 @Validated
 @Api(value = "quotes", description = "the quotes API")
@@ -73,7 +72,7 @@ public interface QuotesApi {
         getRequest().ifPresent(request -> {
             for (MediaType mediaType: MediaType.parseMediaTypes(request.getHeader("Accept"))) {
                 if (mediaType.isCompatibleWith(MediaType.valueOf("application/json"))) {
-                    String exampleString = "{ \"ask\" : 1, \"id\" : 0, \"bid\" : 6, \"isin\" : \"isin\" }";
+                    String exampleString = "{ \"ask\" : 1, \"id\" : 0, \"bid\" : 6, \"isin\" : \"RU000A0JX0J2\" }";
                     ApiUtil.setExampleResponse(request, "application/json", exampleString);
                     break;
                 }

@@ -1,11 +1,14 @@
 openapi: "3.0.0"
+
 info:
   version: 1.0.0
-  title: Swagger Petstore
+  title: Sberbank elvs tracker
   license:
-    name: MIT
+    name: GNU
+
 servers:
-- url: http://petstore.swagger.io/v1
+- url: https://api.elvs.fdobrotv.com
+
 paths:
   /quotes:
     get:
@@ -92,6 +95,7 @@ components:
       minLength: 12
       maxLength: 12
       pattern: '\b([A-Z]{2})((?![A-Z]{10}\b)[A-Z0-9]{10})\b'
+      example: RU000A0JX0J2
 
     Quote:
       type: object
@@ -108,8 +112,10 @@ components:
           $ref: '#/components/schemas/Isin'
         bid:
           type: integer
+          example: 100.2
         ask:
           type: integer
+          example: 101.9
 
     Quotes:
       type: array
@@ -127,6 +133,7 @@ components:
           format: int64
         name:
           type: string
+
     Elvls:
       type: array
       items:
