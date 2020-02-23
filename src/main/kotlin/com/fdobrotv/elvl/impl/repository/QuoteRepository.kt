@@ -6,4 +6,6 @@ import org.springframework.stereotype.Repository
 import java.util.*
 
 @Repository
-interface QuoteRepository: CrudRepository<QuoteEntity, UUID>
+interface QuoteRepository: CrudRepository<QuoteEntity, UUID> {
+    fun findFirstByOrderByCreatedAtDesc(): Optional<QuoteEntity>
+}
