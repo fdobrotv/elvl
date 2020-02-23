@@ -3,21 +3,18 @@ package com.fdobrotv.elvl.model;
 import java.util.Objects;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonCreator;
-import com.fdobrotv.elvl.model.QuoteAllOf;
-import com.fdobrotv.elvl.model.QuoteIn;
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
 import java.math.BigDecimal;
-import java.util.UUID;
 import org.openapitools.jackson.nullable.JsonNullable;
 import javax.validation.Valid;
 import javax.validation.constraints.*;
 
 /**
- * Quote
+ * QuoteIn
  */
 
-public class Quote   {
+public class QuoteIn   {
   @JsonProperty("isin")
   private String isin;
 
@@ -27,10 +24,7 @@ public class Quote   {
   @JsonProperty("ask")
   private BigDecimal ask;
 
-  @JsonProperty("id")
-  private UUID id;
-
-  public Quote isin(String isin) {
+  public QuoteIn isin(String isin) {
     this.isin = isin;
     return this;
   }
@@ -51,7 +45,7 @@ public class Quote   {
     this.isin = isin;
   }
 
-  public Quote bid(BigDecimal bid) {
+  public QuoteIn bid(BigDecimal bid) {
     this.bid = bid;
     return this;
   }
@@ -73,7 +67,7 @@ public class Quote   {
     this.bid = bid;
   }
 
-  public Quote ask(BigDecimal ask) {
+  public QuoteIn ask(BigDecimal ask) {
     this.ask = ask;
     return this;
   }
@@ -95,28 +89,6 @@ public class Quote   {
     this.ask = ask;
   }
 
-  public Quote id(UUID id) {
-    this.id = id;
-    return this;
-  }
-
-  /**
-   * Get id
-   * @return id
-  */
-  @ApiModelProperty(required = true, value = "")
-  @NotNull
-
-  @Valid
-
-  public UUID getId() {
-    return id;
-  }
-
-  public void setId(UUID id) {
-    this.id = id;
-  }
-
 
   @Override
   public boolean equals(java.lang.Object o) {
@@ -126,27 +98,25 @@ public class Quote   {
     if (o == null || getClass() != o.getClass()) {
       return false;
     }
-    Quote quote = (Quote) o;
-    return Objects.equals(this.isin, quote.isin) &&
-        Objects.equals(this.bid, quote.bid) &&
-        Objects.equals(this.ask, quote.ask) &&
-        Objects.equals(this.id, quote.id);
+    QuoteIn quoteIn = (QuoteIn) o;
+    return Objects.equals(this.isin, quoteIn.isin) &&
+        Objects.equals(this.bid, quoteIn.bid) &&
+        Objects.equals(this.ask, quoteIn.ask);
   }
 
   @Override
   public int hashCode() {
-    return Objects.hash(isin, bid, ask, id);
+    return Objects.hash(isin, bid, ask);
   }
 
   @Override
   public String toString() {
     StringBuilder sb = new StringBuilder();
-    sb.append("class Quote {\n");
+    sb.append("class QuoteIn {\n");
     
     sb.append("    isin: ").append(toIndentedString(isin)).append("\n");
     sb.append("    bid: ").append(toIndentedString(bid)).append("\n");
     sb.append("    ask: ").append(toIndentedString(ask)).append("\n");
-    sb.append("    id: ").append(toIndentedString(id)).append("\n");
     sb.append("}");
     return sb.toString();
   }

@@ -41,7 +41,7 @@ paths:
         content:
           application/json:
             schema:
-              $ref: '#/components/schemas/Quote'
+              $ref: '#/components/schemas/QuoteIn'
       responses:
         '201':
           description: Created quote
@@ -109,17 +109,13 @@ components:
       pattern: '\b([A-Z]{2})((?![A-Z]{10}\b)[A-Z0-9]{10})\b'
       example: RU000A0JX0J2
 
-    Quote:
+    QuoteIn:
       type: object
       required:
-        - id
         - isin
         - bid
         - ask
       properties:
-        id:
-          type: string
-          format: uuid
         isin:
           $ref: '#/components/schemas/Isin'
         bid:
@@ -128,6 +124,17 @@ components:
         ask:
           type: number
           example: 101.9
+
+    Quote:
+      allOf:
+        - $ref: '#/components/schemas/QuoteIn'
+        - type: object
+          required:
+            - id
+          properties:
+            id:
+              type: string
+              format: uuid
 
     Quotes:
       type: array
