@@ -31,7 +31,8 @@ tasks.openApiGenerate {
     invokerPackage = "com.fdobrotv.elvl.invoker"
     modelPackage = "com.fdobrotv.elvl.model"
     configOptions = [
-        dateLibrary: "java8"
+        dateLibrary: "java8",
+        hideGenerationTimestamp: "true"
     ]
 }
 

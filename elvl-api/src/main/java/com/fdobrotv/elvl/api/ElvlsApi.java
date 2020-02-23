@@ -27,7 +27,6 @@ import javax.validation.constraints.*;
 import java.util.List;
 import java.util.Map;
 import java.util.Optional;
-@javax.annotation.Generated(value = "org.openapitools.codegen.languages.SpringCodegen", date = "2020-02-23T20:21:55.909566300+06:00[Asia/Almaty]")
 
 @Validated
 @Api(value = "elvls", description = "the elvls API")
