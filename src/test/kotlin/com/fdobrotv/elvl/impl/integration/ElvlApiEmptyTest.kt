@@ -2,7 +2,6 @@ package com.fdobrotv.elvl.impl.integration
 
 import com.fdobrotv.elvl.impl.controller.QuoteApiImpl
 import com.fdobrotv.elvl.impl.util.quoteOne
-import com.fdobrotv.elvl.model.QuoteIn
 import org.assertj.core.api.Assertions.assertThat
 import org.junit.jupiter.api.Assertions.assertEquals
 import org.junit.jupiter.api.Test
@@ -11,14 +10,12 @@ import org.springframework.boot.test.context.SpringBootTest
 import org.springframework.boot.test.context.SpringBootTest.WebEnvironment
 import org.springframework.boot.test.web.client.TestRestTemplate
 import org.springframework.boot.web.server.LocalServerPort
-import org.springframework.http.HttpEntity
-import org.springframework.http.HttpHeaders
 import org.springframework.http.HttpStatus
 import javax.transaction.Transactional
 
 @Transactional
 @SpringBootTest(webEnvironment = WebEnvironment.RANDOM_PORT)
-class ElvlApiTest {
+class ElvlApiEmptyTest {
 
     @LocalServerPort
     private val port = 0
@@ -37,28 +34,24 @@ class ElvlApiTest {
 
     @Test
     @Throws(Exception::class)
-    fun postQuoteShouldReturnState() {
-        val headers = HttpHeaders()
-        headers.add("content-type","application/json")
-        val request: HttpEntity<QuoteIn> = HttpEntity(quoteOne, headers)
-        val response = restTemplate.postForEntity("http://localhost:$port/quotes", request,
-                String::class.java)
-        val body = response.body
-        assertEquals(HttpStatus.CREATED, response.statusCode)
+    fun quotesShouldReturnEmptyArray() {
+        assertThat(restTemplate.getForObject("http://localhost:$port/quotes",
+                String::class.java)).contains("[]")
     }
 
     @Test
     @Throws(Exception::class)
-    fun shouldPassDocumentedTest() {
-        val headers = HttpHeaders()
-        headers.add("content-type","application/json")
-        val request: HttpEntity<QuoteIn> = HttpEntity(quoteOne, headers)
-        restTemplate.postForEntity("http://localhost:$port/quotes", request,
-                String::class.java)
+    fun elvlsShouldReturnEmptyArray() {
+        assertThat(this.restTemplate.getForObject("http://localhost:$port/elvls",
+                String::class.java)).contains("[]")
+    }
 
+    @Test
+    @Throws(Exception::class)
+    fun shouldReturn404ByIsin() {
         val response = restTemplate.getForEntity("http://localhost:$port/elvls/${quoteOne.isin}",
                 String::class.java)
-        assertEquals(HttpStatus.OK, response.statusCode)
+        assertEquals(HttpStatus.NOT_FOUND, response.statusCode)
     }
 
 }

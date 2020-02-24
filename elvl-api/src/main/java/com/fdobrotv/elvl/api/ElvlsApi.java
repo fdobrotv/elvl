@@ -69,11 +69,13 @@ public interface ElvlsApi {
      *
      * @param isin How many items to return at one time (max 100) (required)
      * @return Elvl by isin (status code 200)
+     *         or Elvl not found by the isin (status code 404)
      *         or unexpected error (status code 200)
      */
     @ApiOperation(value = "Get elvl by isin", nickname = "getElvlByIsin", notes = "", response = Elvl.class, tags={ "Elvl", })
     @ApiResponses(value = { 
         @ApiResponse(code = 200, message = "Elvl by isin", response = Elvl.class),
+        @ApiResponse(code = 404, message = "Elvl not found by the isin"),
         @ApiResponse(code = 200, message = "unexpected error", response = Error.class) })
     @RequestMapping(value = "/elvls/{isin}",
         produces = { "application/json" }, 

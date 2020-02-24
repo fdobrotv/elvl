@@ -15,6 +15,8 @@ class ElvlsApiImpl(
     }
 
     override fun getElvlByIsin(isin: String): ResponseEntity<Elvl> {
-        return ResponseEntity.ok(elvlService.getByIsin(isin))
+        return elvlService.getByIsin(isin)
+                .map { ResponseEntity.ok(it) }
+                .orElseGet { ResponseEntity.notFound().build() }
     }
 }
