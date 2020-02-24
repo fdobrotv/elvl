@@ -15,7 +15,7 @@ import org.springframework.web.bind.annotation.RestController
 private val logger = KotlinLogging.logger {}
 
 @RestController
-class QuoteController(
+class QuoteApiImpl(
         private val quoteService: QuoteService
 ) : QuotesApi {
     @ExceptionHandler

@@ -77,7 +77,7 @@ paths:
   /elvls/{isin}:
     get:
       summary: Get elvl by isin
-      operationId: elvl by isin
+      operationId: getElvlByIsin
       tags:
         - Elvl
       parameters:
@@ -144,14 +144,14 @@ components:
     Elvl:
       type: object
       required:
-        - id
-        - name
+        - isin
+        - price
       properties:
-        id:
-          type: string
-          format: uuid
-        name:
-          type: string
+        isin:
+          $ref: "#/components/schemas/Isin"
+        price:
+          type: number
+          example: 101.9
 
     Elvls:
       type: array
