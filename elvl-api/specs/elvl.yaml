@@ -94,6 +94,8 @@ paths:
             application/json:
               schema:
                 $ref: "#/components/schemas/Elvl"
+        '404':
+          description: Elvl not found by the isin
         default:
           description: unexpected error
           content:

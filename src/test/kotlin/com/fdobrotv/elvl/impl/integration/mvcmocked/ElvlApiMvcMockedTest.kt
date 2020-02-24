@@ -1,17 +1,23 @@
-package com.fdobrotv.elvl.impl.integration
+package com.fdobrotv.elvl.impl.integration.mvcmocked
 
 import com.fasterxml.jackson.databind.ObjectMapper
+import com.fdobrotv.elvl.api.QuotesApi
 import com.fdobrotv.elvl.model.QuoteIn
 import org.junit.jupiter.api.Test
 import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc
+import org.springframework.boot.test.autoconfigure.web.servlet.WebMvcTest
 import org.springframework.boot.test.context.SpringBootTest
 import org.springframework.http.MediaType
-import org.springframework.test.annotation.Rollback
+import org.springframework.mock.web.MockHttpServletResponse
+import org.springframework.test.context.junit4.SpringRunner
 import org.springframework.test.web.servlet.MockMvc
+import org.springframework.test.web.servlet.MvcResult
+import org.springframework.test.web.servlet.request.MockMvcRequestBuilders
 import org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get
 import org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post
-import org.springframework.test.web.servlet.result.MockMvcResultMatchers.*
+import org.springframework.test.web.servlet.result.MockMvcResultMatchers.content
+import org.springframework.test.web.servlet.result.MockMvcResultMatchers.status
 import java.math.BigDecimal
 import java.math.RoundingMode
 import javax.transaction.Transactional
@@ -34,12 +40,22 @@ class ElvlApiMvcMockedTest {
                 .bid(bigDecimal(100.2))
                 .ask(bigDecimal(101.9))
 
+        val result: MvcResult = mockMvc.perform( MockMvcRequestBuilders
+                .post("/quotes", asJsonString(firstQuote))
+                .contentType(MediaType.APPLICATION_JSON)
+                .accept(MediaType.APPLICATION_JSON))
+                .andReturn()
+//                .andExpect(status().isCreated)
+//                .andExpect(MockMvcResultMatchers.jsonPath("$.employees").exists())
+//                .andExpect(MockMvcResultMatchers.jsonPath("$.employees[*].employeeId").isNotEmpty);
+        val content = result.response.contentAsString
+
         mockMvc.perform(
-                post("/quotes", objectMapper.writeValueAsString(firstQuote))
+                post("/quotes", asJsonString(firstQuote))
                         .contentType(MediaType.parseMediaType("application/json"))
-                        .accept(MediaType.parseMediaType("application/json")
-                        )
+                        .accept(MediaType.parseMediaType("application/json"))
         )
+//                .andDo(print())
                 .andExpect(status().isCreated)
                 .andExpect(content().contentType("application/json"))
 //                .andExpect(jsonPath("$.quote[?(@.bid=='1.0')].bid").value("1.0"))
@@ -58,4 +74,11 @@ class ElvlApiMvcMockedTest {
                 .andExpect(content().contentType("application/json"))
     }
 
+    fun asJsonString(obj: Any): String {
+        return try {
+            objectMapper.writeValueAsString(obj)
+        } catch (e: Exception) {
+            throw RuntimeException(e)
+        }
+    }
 }

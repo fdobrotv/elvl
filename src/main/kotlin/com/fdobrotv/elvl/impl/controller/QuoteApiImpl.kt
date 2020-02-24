@@ -29,6 +29,6 @@ class QuoteApiImpl(
     }
 
     override fun createQuote(quote: QuoteIn): ResponseEntity<Quote> {
-        return ResponseEntity.ok(quoteService.create(quote))
+        return ResponseEntity.status(HttpStatus.CREATED).body(quoteService.create(quote))
     }
 }
