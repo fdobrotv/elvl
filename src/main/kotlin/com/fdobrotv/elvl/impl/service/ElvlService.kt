@@ -19,7 +19,7 @@ class ElvlServiceImpl (private val quoteRepository: QuoteRepository) : ElvlServi
     }
 
     override fun getByIsin(isin: String): Optional<Elvl> {
-        return quoteRepository.findByIsinOrderByCreatedAtDesc(isin).map {
+        return quoteRepository.findFirstByIsinOrderByCreatedAtDesc(isin).map {
             Elvl().isin(isin).price(it.bid ?: it.ask ?: BigDecimal.ZERO)
         }
     }

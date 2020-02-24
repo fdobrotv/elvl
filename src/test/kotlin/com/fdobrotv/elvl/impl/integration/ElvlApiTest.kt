@@ -14,9 +14,7 @@ import org.springframework.boot.web.server.LocalServerPort
 import org.springframework.http.HttpEntity
 import org.springframework.http.HttpHeaders
 import org.springframework.http.HttpStatus
-import javax.transaction.Transactional
 
-@Transactional
 @SpringBootTest(webEnvironment = WebEnvironment.RANDOM_PORT)
 class ElvlApiTest {
 
@@ -40,7 +38,7 @@ class ElvlApiTest {
     fun postQuoteShouldReturnState() {
         val headers = HttpHeaders()
         headers.add("content-type","application/json")
-        val request: HttpEntity<QuoteIn> = HttpEntity(quoteOne, headers)
+        val request: HttpEntity<QuoteIn> = HttpEntity(quoteOne.isin("RU100A0JX0J2"), headers)
         val response = restTemplate.postForEntity("http://localhost:$port/quotes", request,
                 String::class.java)
         val body = response.body
