@@ -14,8 +14,9 @@ import org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post
 import org.springframework.test.web.servlet.result.MockMvcResultMatchers.*
 import java.math.BigDecimal
 import java.math.RoundingMode
+import javax.transaction.Transactional
 
-
+@Transactional
 @SpringBootTest
 @AutoConfigureMockMvc
 class ElvlApiMvcMockedTest {
@@ -27,7 +28,6 @@ class ElvlApiMvcMockedTest {
     private lateinit var objectMapper: ObjectMapper
 
     @Test
-    @Rollback
     fun whenFirstValidInput_thenReturns201() {
         val firstQuote = QuoteIn()
                 .isin("RU000A0JX0J2")

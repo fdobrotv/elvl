@@ -8,4 +8,5 @@ import java.util.*
 @Repository
 interface QuoteRepository: CrudRepository<QuoteEntity, UUID> {
     fun findFirstByOrderByCreatedAtDesc(): Optional<QuoteEntity>
+    fun findFirstByOrderByCreatedAtDescAndIsin(isin: String): Optional<QuoteEntity>
 }

@@ -1,6 +1,6 @@
 package com.fdobrotv.elvl.impl.integration
 
-import com.fdobrotv.elvl.impl.controller.QuoteController
+import com.fdobrotv.elvl.impl.controller.QuoteApiImpl
 import org.assertj.core.api.Assertions.assertThat
 import org.junit.jupiter.api.Test
 import org.springframework.beans.factory.annotation.Autowired
@@ -17,21 +17,28 @@ class ElvlApiTest {
     private val port = 0
 
     @Autowired
-    private val controller: QuoteController? = null
+    private lateinit var apiImpl: QuoteApiImpl
 
     @Autowired
-    private val restTemplate: TestRestTemplate? = null
+    private lateinit var restTemplate: TestRestTemplate
 
     @Test
     @Throws(Exception::class)
     fun contexLoads() {
-        assertThat(controller).isNotNull
+        assertThat(apiImpl).isNotNull
     }
 
     @Test
     @Throws(Exception::class)
-    fun greetingShouldReturnDefaultMessage() {
-        assertThat(this.restTemplate?.getForObject("http://localhost:$port/quotes",
+    fun quotesShouldReturnEmptyArray() {
+        assertThat(this.restTemplate.getForObject("http://localhost:$port/quotes",
+                String::class.java)).contains("[]")
+    }
+
+    @Test
+    @Throws(Exception::class)
+    fun elvlsShouldReturnEmptyArray() {
+        assertThat(this.restTemplate.getForObject("http://localhost:$port/elvls",
                 String::class.java)).contains("[]")
     }
 

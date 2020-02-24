@@ -37,35 +37,6 @@ public interface ElvlsApi {
     }
 
     /**
-     * GET /elvls/{isin} : Get elvl by isin
-     *
-     * @param isin How many items to return at one time (max 100) (required)
-     * @return Elvl by isin (status code 200)
-     *         or unexpected error (status code 200)
-     */
-    @ApiOperation(value = "Get elvl by isin", nickname = "elvlByIsin", notes = "", response = Elvl.class, tags={ "Elvl", })
-    @ApiResponses(value = { 
-        @ApiResponse(code = 200, message = "Elvl by isin", response = Elvl.class),
-        @ApiResponse(code = 200, message = "unexpected error", response = Error.class) })
-    @RequestMapping(value = "/elvls/{isin}",
-        produces = { "application/json" }, 
-        method = RequestMethod.GET)
-    default ResponseEntity<Elvl> elvlByIsin(@Pattern(regexp="\\b([A-Z]{2})((?![A-Z]{10}\\b)[A-Z0-9]{10})\\b") @Size(min=12,max=12) @ApiParam(value = "How many items to return at one time (max 100)",required=true) @PathVariable("isin") String isin) {
-        getRequest().ifPresent(request -> {
-            for (MediaType mediaType: MediaType.parseMediaTypes(request.getHeader("Accept"))) {
-                if (mediaType.isCompatibleWith(MediaType.valueOf("application/json"))) {
-                    String exampleString = "{ \"name\" : \"name\", \"id\" : \"046b6c7f-0b8a-43b9-b35d-6489e6daee91\" }";
-                    ApiUtil.setExampleResponse(request, "application/json", exampleString);
-                    break;
-                }
-            }
-        });
-        return new ResponseEntity<>(HttpStatus.NOT_IMPLEMENTED);
-
-    }
-
-
-    /**
      * GET /elvls : List of all elvls (energy level – лучшая цена по данному инструменту (isin))
      *
      * @return Array of elvls (status code 200)
@@ -82,7 +53,36 @@ public interface ElvlsApi {
         getRequest().ifPresent(request -> {
             for (MediaType mediaType: MediaType.parseMediaTypes(request.getHeader("Accept"))) {
                 if (mediaType.isCompatibleWith(MediaType.valueOf("application/json"))) {
-                    String exampleString = "{ \"name\" : \"name\", \"id\" : \"046b6c7f-0b8a-43b9-b35d-6489e6daee91\" }";
+                    String exampleString = "{ \"price\" : 101.9, \"isin\" : \"RU000A0JX0J2\" }";
+                    ApiUtil.setExampleResponse(request, "application/json", exampleString);
+                    break;
+                }
+            }
+        });
+        return new ResponseEntity<>(HttpStatus.NOT_IMPLEMENTED);
+
+    }
+
+
+    /**
+     * GET /elvls/{isin} : Get elvl by isin
+     *
+     * @param isin How many items to return at one time (max 100) (required)
+     * @return Elvl by isin (status code 200)
+     *         or unexpected error (status code 200)
+     */
+    @ApiOperation(value = "Get elvl by isin", nickname = "getElvlByIsin", notes = "", response = Elvl.class, tags={ "Elvl", })
+    @ApiResponses(value = { 
+        @ApiResponse(code = 200, message = "Elvl by isin", response = Elvl.class),
+        @ApiResponse(code = 200, message = "unexpected error", response = Error.class) })
+    @RequestMapping(value = "/elvls/{isin}",
+        produces = { "application/json" }, 
+        method = RequestMethod.GET)
+    default ResponseEntity<Elvl> getElvlByIsin(@Pattern(regexp="\\b([A-Z]{2})((?![A-Z]{10}\\b)[A-Z0-9]{10})\\b") @Size(min=12,max=12) @ApiParam(value = "How many items to return at one time (max 100)",required=true) @PathVariable("isin") String isin) {
+        getRequest().ifPresent(request -> {
+            for (MediaType mediaType: MediaType.parseMediaTypes(request.getHeader("Accept"))) {
+                if (mediaType.isCompatibleWith(MediaType.valueOf("application/json"))) {
+                    String exampleString = "{ \"price\" : 101.9, \"isin\" : \"RU000A0JX0J2\" }";
                     ApiUtil.setExampleResponse(request, "application/json", exampleString);
                     break;
                 }
