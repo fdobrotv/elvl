@@ -54,8 +54,7 @@ public class QuoteIn   {
    * Get bid
    * @return bid
   */
-  @ApiModelProperty(example = "100.2", required = true, value = "")
-  @NotNull
+  @ApiModelProperty(example = "100.2", value = "")
 
   @Valid
 
