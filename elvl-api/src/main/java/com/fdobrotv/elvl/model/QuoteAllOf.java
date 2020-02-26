@@ -5,6 +5,7 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonCreator;
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
+import java.math.BigDecimal;
 import java.util.UUID;
 import org.openapitools.jackson.nullable.JsonNullable;
 import javax.validation.Valid;
@@ -17,6 +18,9 @@ import javax.validation.constraints.*;
 public class QuoteAllOf   {
   @JsonProperty("id")
   private UUID id;
+
+  @JsonProperty("elvl")
+  private BigDecimal elvl;
 
   public QuoteAllOf id(UUID id) {
     this.id = id;
@@ -40,6 +44,28 @@ public class QuoteAllOf   {
     this.id = id;
   }
 
+  public QuoteAllOf elvl(BigDecimal elvl) {
+    this.elvl = elvl;
+    return this;
+  }
+
+  /**
+   * Get elvl
+   * @return elvl
+  */
+  @ApiModelProperty(example = "100.2", required = true, value = "")
+  @NotNull
+
+  @Valid
+
+  public BigDecimal getElvl() {
+    return elvl;
+  }
+
+  public void setElvl(BigDecimal elvl) {
+    this.elvl = elvl;
+  }
+
 
   @Override
   public boolean equals(java.lang.Object o) {
@@ -50,12 +76,13 @@ public class QuoteAllOf   {
       return false;
     }
     QuoteAllOf quoteAllOf = (QuoteAllOf) o;
-    return Objects.equals(this.id, quoteAllOf.id);
+    return Objects.equals(this.id, quoteAllOf.id) &&
+        Objects.equals(this.elvl, quoteAllOf.elvl);
   }
 
   @Override
   public int hashCode() {
-    return Objects.hash(id);
+    return Objects.hash(id, elvl);
   }
 
   @Override
@@ -64,6 +91,7 @@ public class QuoteAllOf   {
     sb.append("class QuoteAllOf {\n");
     
     sb.append("    id: ").append(toIndentedString(id)).append("\n");
+    sb.append("    elvl: ").append(toIndentedString(elvl)).append("\n");
     sb.append("}");
     return sb.toString();
   }

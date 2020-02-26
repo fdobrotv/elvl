@@ -133,10 +133,14 @@ components:
         - type: object
           required:
             - id
+            - elvl
           properties:
             id:
               type: string
               format: uuid
+            elvl:
+              type: number
+              example: 100.2
 
     Quotes:
       type: array
