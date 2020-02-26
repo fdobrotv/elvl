@@ -4,8 +4,9 @@ CREATE SCHEMA main;
 CREATE TABLE IF NOT EXISTS quote(
     id UUID DEFAULT random_uuid(),
     isin VARCHAR(12) NOT NULL,
-    bid DECIMAL NOT NULL,
+    bid DECIMAL,
     ask DECIMAL NOT NULL,
+    elvl DECIMAL NOT NULL,
     created_at TIMESTAMP(9) DEFAULT CURRENT_TIMESTAMP,
     updated_at TIMESTAMP,
     PRIMARY KEY (id)

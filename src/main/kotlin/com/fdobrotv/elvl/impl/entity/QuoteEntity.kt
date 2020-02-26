@@ -13,9 +13,11 @@ class QuoteEntity(
         @Id
         @GeneratedValue(strategy = GenerationType.AUTO)
         val id: UUID? = null,
-        var isin: String? = null,
-        var bid: BigDecimal? = null,
-        var ask: BigDecimal? = null,
+        val isin: String,
+        val bid: BigDecimal? = null,
+        val ask: BigDecimal,
+        var elvl: BigDecimal = bid ?: ask,
+
         @CreatedDate
         val createdAt: Date = Date()
 )
