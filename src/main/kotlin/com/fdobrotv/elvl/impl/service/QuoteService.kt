@@ -7,7 +7,6 @@ import com.fdobrotv.elvl.model.Quote
 import com.fdobrotv.elvl.model.QuoteIn
 import org.springframework.stereotype.Service
 import org.springframework.transaction.annotation.Transactional
-import sun.plugin.dom.exception.InvalidStateException
 import java.math.BigDecimal
 
 interface QuoteService {
@@ -47,7 +46,8 @@ class QuoteServiceImpl(
                     else -> {
                         //TODO: We have trouble there if elvl == bid or ask
                         // Add a test for this
-                        throw InvalidStateException("elvl == bid or ask")
+                        //throw IllegalStateException("elvl == bid or ask")
+                        quote.bid
                     }
                 }
             }

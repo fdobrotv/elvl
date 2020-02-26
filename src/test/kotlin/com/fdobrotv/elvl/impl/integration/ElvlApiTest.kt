@@ -2,7 +2,10 @@ package com.fdobrotv.elvl.impl.integration
 
 import com.fdobrotv.elvl.impl.controller.QuoteApiImpl
 import com.fdobrotv.elvl.impl.util.quoteOne
+import com.fdobrotv.elvl.impl.util.quoteTwo
+import com.fdobrotv.elvl.model.Quote
 import com.fdobrotv.elvl.model.QuoteIn
+import mu.KotlinLogging
 import org.assertj.core.api.Assertions.assertThat
 import org.junit.jupiter.api.Assertions.assertEquals
 import org.junit.jupiter.api.Test
@@ -14,6 +17,8 @@ import org.springframework.boot.web.server.LocalServerPort
 import org.springframework.http.HttpEntity
 import org.springframework.http.HttpHeaders
 import org.springframework.http.HttpStatus
+
+private val logger = KotlinLogging.logger {}
 
 @SpringBootTest(webEnvironment = WebEnvironment.RANDOM_PORT)
 class ElvlApiTest {
@@ -35,14 +40,23 @@ class ElvlApiTest {
 
     @Test
     @Throws(Exception::class)
-    fun postQuoteShouldReturnState() {
+    fun postQuotesShouldShowSuccessElvls() {
         val headers = HttpHeaders()
         headers.add("content-type","application/json")
-        val request: HttpEntity<QuoteIn> = HttpEntity(quoteOne.isin("RU100A0JX0J2"), headers)
-        val response = restTemplate.postForEntity("http://localhost:$port/quotes", request,
-                String::class.java)
-        val body = response.body
-        assertEquals(HttpStatus.CREATED, response.statusCode)
+        val quoteOneRequest: HttpEntity<QuoteIn> = HttpEntity(quoteOne.isin("RU100A0JX0J2"), headers)
+        val quoteOneResponse = restTemplate.postForEntity("http://localhost:$port/quotes", quoteOneRequest,
+                Quote::class.java)
+
+        assertEquals(HttpStatus.CREATED, quoteOneResponse.statusCode)
+        logger.info { "quoteOne elvl is ${quoteOneResponse.body!!.elvl}" }
+        assertEquals(quoteOne.bid, quoteOneResponse.body!!.elvl)
+
+        val quoteTwoRequest: HttpEntity<QuoteIn> = HttpEntity(quoteTwo.isin("RU100A0JX0J2"), headers)
+        val quoteTwoResponse = restTemplate.postForEntity("http://localhost:$port/quotes", quoteTwoRequest,
+                Quote::class.java)
+
+        logger.info { "quoteTwo elvl is ${quoteTwoResponse.body!!.elvl}" }
+        assertEquals(quoteTwo.bid, quoteTwoResponse.body!!.elvl)
     }
 
     @Test
