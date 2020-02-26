@@ -27,9 +27,9 @@ class QuoteServiceImpl(
 
     @Transactional
     override fun create(quote: QuoteIn): Quote {
-        val calculaterElvl: BigDecimal = calculateElvl(quote)
+        val calculatedElvl: BigDecimal = calculateElvl(quote)
 
-        return quoteRepository.save(quote.toEntity(calculaterElvl)).toDTO()
+        return quoteRepository.save(quote.toEntity(calculatedElvl)).toDTO()
     }
 
     private fun calculateElvl(quote: QuoteIn): BigDecimal {

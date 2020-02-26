@@ -9,7 +9,7 @@ import javax.persistence.*
 //TODO: move id and createdAt into Base entity
 @Entity
 @Table(name = "quote")
-class QuoteEntity(
+data class QuoteEntity(
         @Id
         @GeneratedValue(strategy = GenerationType.AUTO)
         val id: UUID? = null,
