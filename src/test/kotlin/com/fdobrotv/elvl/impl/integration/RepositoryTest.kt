@@ -29,7 +29,7 @@ class RepositoryTest {
     @Test
     @Throws(Exception::class)
     fun persistenceTest() {
-        quoteRepository.save(quoteOne.toEntity())
+        quoteRepository.save(quoteOne.toEntity(quoteOne.bid))
 
         val quoteEntity = quoteRepository.findByIsin(quoteOne.isin)
         Assertions.assertEquals(quoteOne.isin, quoteEntity.get().isin)
@@ -44,11 +44,11 @@ class RepositoryTest {
                         quoteTwo,
                         QuoteIn().isin("RU100A0JX0J2").bid(bigDecimal(55.2)).ask(bigDecimal(44.2)),
                         QuoteIn().isin("RU100A0JX0J2").bid(bigDecimal(54.2)).ask(bigDecimal(43.2))
-                ).map { it.toEntity() }
+                ).map { it.toEntity(it.bid) }
 
         dataSet.map {
             Thread.sleep(100)
-            println(quoteRepository.save(quoteOne.toEntity()).createdAt.toInstant())
+            println(quoteRepository.save(quoteOne.toEntity(it.bid!!)).createdAt.toInstant())
         }
 
         val quoted = quoteRepository.findFirstByIsinOrderByCreatedAtDesc("RU000A0JX0J2")
