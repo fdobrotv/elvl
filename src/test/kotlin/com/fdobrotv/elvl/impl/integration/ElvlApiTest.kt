@@ -39,6 +39,19 @@ class ElvlApiTest {
     }
 
     @Test
+    fun shouldUseBidIfElvlAbsent() {
+        val headers = HttpHeaders()
+        headers.add("content-type", "application/json")
+        val quoteOneRequest: HttpEntity<QuoteIn> = HttpEntity(quoteOne.isin("RU120A0JX0J2"), headers)
+        val quoteOneResponse = restTemplate.postForEntity("http://localhost:$port/quotes", quoteOneRequest,
+                Quote::class.java)
+
+        assertEquals(HttpStatus.CREATED, quoteOneResponse.statusCode)
+        logger.info { "first elvl is ${quoteOneResponse.body!!.elvl}" }
+        assertEquals(quoteOne.bid, quoteOneResponse.body!!.elvl)
+    }
+
+    @Test
     fun postQuotesShouldShowSuccessElvls() {
         val headers = HttpHeaders()
         headers.add("content-type","application/json")
