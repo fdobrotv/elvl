@@ -2,6 +2,7 @@ package com.fdobrotv.elvl.impl.integration
 
 import com.fdobrotv.elvl.impl.controller.QuoteApiImpl
 import com.fdobrotv.elvl.impl.util.quoteOne
+import com.fdobrotv.elvl.impl.util.quoteThree
 import com.fdobrotv.elvl.impl.util.quoteTwo
 import com.fdobrotv.elvl.model.Quote
 import com.fdobrotv.elvl.model.QuoteIn
@@ -33,13 +34,11 @@ class ElvlApiTest {
     private lateinit var restTemplate: TestRestTemplate
 
     @Test
-    @Throws(Exception::class)
     fun contexLoads() {
         assertThat(apiImpl).isNotNull
     }
 
     @Test
-    @Throws(Exception::class)
     fun postQuotesShouldShowSuccessElvls() {
         val headers = HttpHeaders()
         headers.add("content-type","application/json")
@@ -48,19 +47,38 @@ class ElvlApiTest {
                 Quote::class.java)
 
         assertEquals(HttpStatus.CREATED, quoteOneResponse.statusCode)
-        logger.info { "quoteOne elvl is ${quoteOneResponse.body!!.elvl}" }
+        logger.info { "first elvl is ${quoteOneResponse.body!!.elvl}" }
         assertEquals(quoteOne.bid, quoteOneResponse.body!!.elvl)
 
         val quoteTwoRequest: HttpEntity<QuoteIn> = HttpEntity(quoteTwo.isin("RU100A0JX0J2"), headers)
         val quoteTwoResponse = restTemplate.postForEntity("http://localhost:$port/quotes", quoteTwoRequest,
                 Quote::class.java)
 
-        logger.info { "quoteTwo elvl is ${quoteTwoResponse.body!!.elvl}" }
+        logger.info { "second elvl is ${quoteTwoResponse.body!!.elvl}" }
         assertEquals(quoteTwo.bid, quoteTwoResponse.body!!.elvl)
     }
 
     @Test
-    @Throws(Exception::class)
+    fun shouldUseAskAsElvlIfItBigger() {
+        val headers = HttpHeaders()
+        headers.add("content-type","application/json")
+        val quoteOneRequest: HttpEntity<QuoteIn> = HttpEntity(quoteOne.isin("RU100A0JX0J2"), headers)
+        val quoteOneResponse = restTemplate.postForEntity("http://localhost:$port/quotes", quoteOneRequest,
+                Quote::class.java)
+
+        assertEquals(HttpStatus.CREATED, quoteOneResponse.statusCode)
+        logger.info { "first elvl is ${quoteOneResponse.body!!.elvl}" }
+        assertEquals(quoteOne.bid, quoteOneResponse.body!!.elvl)
+
+        val quoteTwoRequest: HttpEntity<QuoteIn> = HttpEntity(quoteThree.isin("RU100A0JX0J2"), headers)
+        val quoteTwoResponse = restTemplate.postForEntity("http://localhost:$port/quotes", quoteTwoRequest,
+                Quote::class.java)
+
+        logger.info { "second elvl is ${quoteTwoResponse.body!!.elvl}" }
+        assertEquals(quoteThree.ask, quoteTwoResponse.body!!.elvl)
+    }
+
+    @Test
     fun shouldPassDocumentedTest() {
         val headers = HttpHeaders()
         headers.add("content-type","application/json")
