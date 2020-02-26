@@ -16,7 +16,7 @@ class QuoteEntity(
         val isin: String,
         val bid: BigDecimal? = null,
         val ask: BigDecimal,
-        var elvl: BigDecimal = bid ?: ask,
+        var elvl: BigDecimal,
 
         @CreatedDate
         val createdAt: Date = Date()
