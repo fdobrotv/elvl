@@ -13,9 +13,9 @@ interface ElvlService {
 }
 
 @Service
-class ElvlServiceImpl (private val quoteRepository: QuoteRepository) : ElvlService {
+class ElvlServiceImpl(private val quoteRepository: QuoteRepository) : ElvlService {
     override fun getAll(): List<Elvl> {
-        TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
+        return quoteRepository.findAll().map { Elvl().isin(it.isin).price(it.elvl) }
     }
 
     override fun getByIsin(isin: String): Optional<Elvl> {
