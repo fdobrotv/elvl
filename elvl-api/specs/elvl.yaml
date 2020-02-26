@@ -123,6 +123,7 @@ components:
         bid:
           type: number
           example: 100.2
+#          nullable: true
         ask:
           type: number
           example: 101.9

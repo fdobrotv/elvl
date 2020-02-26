@@ -21,6 +21,8 @@ dependencies {
 
     implementation("org.flywaydb:flyway-core:6.2.4")
 
+//    implementation("org.openapitools:jackson-databind-nullable:0.2.1")
+
     implementation("io.github.microutils:kotlin-logging:1.7.8")
 
     implementation("com.fasterxml.jackson.module:jackson-module-kotlin")
