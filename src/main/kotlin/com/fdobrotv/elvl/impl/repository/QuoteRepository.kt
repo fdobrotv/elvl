@@ -14,7 +14,5 @@ interface QuoteRepository: JpaRepository<QuoteEntity, UUID> {
 
     fun findFirstByIsinOrderByCreatedAtDesc(isin: String): Optional<QuoteEntity>
 
-    fun findByIsin(isin: String): Optional<QuoteEntity>
-
-    fun findTopByIsinOrderByCreatedAtDesc(isin: String) : Optional<QuoteEntity>
+    fun findAllByOrderByCreatedAtDesc() : List<QuoteEntity>
 }
